@@ -7,27 +7,30 @@ interface
 uses crt;
 
 // Muestra el menú de opciones. Retorna la opción elegida.
-function Menu(): string;
+function MenuPrincipal(): char;
 
 // Muestra un menú de cambio de color. Cambiar el color de la pantalla.
 procedure CambiarColor();
+
+// Devuelve las configuraciones del sistema al predeterminado y limpia la pantalla.
+procedure Salir();
 
 {-----------------------------------------------}
 
 implementation
 
 // mostrar el menú de opciones. Retorna la opción elegida.
-function Menu(): string;
+function MenuPrincipal(): char;
 begin
-    Menu := '0';
+    MenuPrincipal := '0';
 
-    while (Menu < '1') OR (Menu > '3') do
+    while (MenuPrincipal < '1') OR (MenuPrincipal > '3') do
     begin
         writeln('1 - Jugar');
         writeln('2 - Cambiar Tema');
         writeln('3 - Salir');
 
-        Menu := ReadKey();
+        MenuPrincipal := ReadKey();
         clrscr;
     end;
 end;
@@ -77,6 +80,14 @@ begin
 
     TextColor(color_letra);
     TextBackground(color_fondo);
+    clrscr;
 end;
 
+procedure Salir();
+begin
+    // Devolver al tema original
+    TextColor(15);
+    TextBackground(0);
+    clrscr;
+end;
 end.

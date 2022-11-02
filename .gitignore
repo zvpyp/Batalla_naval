@@ -1,6 +1,7 @@
 TPs_faltan/
 
 *.o
+*.ppu
 
 main
 menu
