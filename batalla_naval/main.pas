@@ -1,6 +1,6 @@
 Program BatallaNaval;
 
-uses crt;
+uses crt, tablero, menu;
 
 { Programa principal }
 begin

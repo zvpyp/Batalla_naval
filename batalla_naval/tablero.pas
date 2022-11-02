@@ -4,8 +4,14 @@ unit Tablero;
 
 interface
 
+const
+N = 6; // grilla de 6x6 en el tablero
+
+type
+t_tablero = array[1..N, 1..N] of boolean; // true: hay barco
+
 // Retorna un tablero vacío
-function crear_tablero(): t_tablero;
+function CrearTablero(): t_tablero;
 
 // Suma un barco a la coordenada x,y
 procedure SumarBarco(var tablero : t_tablero; x : byte; y : byte);
@@ -14,7 +20,7 @@ procedure SumarBarco(var tablero : t_tablero; x : byte; y : byte);
 procedure BorrarBarco(var tablero : t_tablero; x : byte; y : byte);
 
 // Retorna verdadero si hay un barco en la coordenada x,y
-function HayBarco(var tablero : t_tablero; x : byte; y : byte): boolean;
+function HayBarco(tablero : t_tablero; x : byte; y : byte): boolean;
 
 // Retorna verdadero si el tablero está vacío
 function TableroVacio(tablero : t_tablero): boolean;
@@ -22,12 +28,6 @@ function TableroVacio(tablero : t_tablero): boolean;
 {-----------------------------------------------}
 
 implementation
-
-const
-N = 6; // grilla de 6x6 en el tablero
-
-type
-t_tablero := array[1..N, 1..N] of boolean; // true: hay barco
 
 function CrearTablero(): t_tablero;
 var
@@ -37,7 +37,7 @@ begin
     for i := 1 to N do
     begin
         for j := 1 to N do
-            crear_tablero[i, j] := false;
+            CrearTablero[i, j] := false;
     end;
 end;
 

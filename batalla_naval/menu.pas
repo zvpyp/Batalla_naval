@@ -1,12 +1,15 @@
 unit Menu;
 
-uses crt;
-
 {-----------------------------------------------}
 
 interface
 
+uses crt;
+
+// Muestra el menú de opciones. Retorna la opción elegida.
 function Menu(): string;
+
+// Muestra un menú de cambio de color. Cambiar el color de la pantalla.
 procedure CambiarColor();
 
 {-----------------------------------------------}
@@ -29,7 +32,6 @@ begin
     end;
 end;
 
-// TODO: hacer un menu de opciones para cambiar el color.
 procedure CambiarColor();
 var
 opt : char;
