@@ -1,11 +1,15 @@
 unit Juego;
 
+{-----------------------------------------------}
+
 interface
 
 uses tablero, crt;
 
 // Inicia el juego de la batalla naval.
 procedure Jugar();
+
+{-----------------------------------------------}
 
 implementation
 
@@ -18,6 +22,7 @@ begin
 
     // inicia el tablero de juego.
     tablero := CrearTablero();
+
 end;
 
 end.

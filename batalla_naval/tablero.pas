@@ -4,8 +4,7 @@ unit Tablero;
 
 interface
 
-const
-N = 6; // grilla de 6x6 en el tablero
+uses Global;
 
 type
 t_tablero = array[1..N, 1..N] of boolean; // true: hay barco
@@ -14,13 +13,13 @@ t_tablero = array[1..N, 1..N] of boolean; // true: hay barco
 function CrearTablero(): t_tablero;
 
 // Suma un barco a la coordenada x,y
-procedure SumarBarco(var tablero : t_tablero; x : byte; y : byte);
+procedure SumarBarco(var tablero : t_tablero; casilla : t_casilla);
 
 // Elimina un barco de la coordenada x,y
-procedure BorrarBarco(var tablero : t_tablero; x : byte; y : byte);
+procedure BorrarBarco(var tablero : t_tablero; casilla : t_casilla);
 
 // Retorna verdadero si hay un barco en la coordenada x,y
-function HayBarco(tablero : t_tablero; x : byte; y : byte): boolean;
+function HayBarco(tablero : t_tablero; casilla : t_casilla): boolean;
 
 // Retorna verdadero si el tablero está vacío
 function TableroVacio(tablero : t_tablero): boolean;
@@ -41,20 +40,20 @@ begin
     end;
 end;
 
-procedure SumarBarco(var tablero : t_tablero; x : byte; y : byte);
+procedure SumarBarco(var tablero : t_tablero; casilla : t_casilla);
 begin
-    tablero[x,y] := true;
+    tablero[casilla.x,casilla.y] := true;
 end;
 
-procedure BorrarBarco(var tablero : t_tablero; x : byte; y : byte);
+procedure BorrarBarco(var tablero : t_tablero; casilla : t_casilla);
 begin
-    tablero[x,y] := false;
+    tablero[casilla.x,casilla.y] := false;
 end;
 
-function HayBarco(tablero : t_tablero; x : byte; y : byte): boolean;
+function HayBarco(tablero : t_tablero; casilla : t_casilla): boolean;
 begin
     HayBarco := false;
-    if tablero[x,y] then
+    if tablero[casilla.x,casilla.y] then
         HayBarco := true;
 end;
 
