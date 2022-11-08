@@ -16,13 +16,26 @@ implementation
 procedure Jugar();
 var
 tablero : t_tablero;
+jugando : boolean;
 begin
     // Limpia el menú de la pantalla
     clrscr;
 
-    // inicia el tablero de juego.
+    // Inicializa el tablero de juego.
     tablero := CrearTablero();
 
+    //TODO: Inicilizar barcos.
+
+    // Loop de juego.
+    jugando := true;
+
+    //TODO: agregar barcos.
+
+    //TODO:
+    //while jugando do
+    //begin
+
+    end;
 end;
 
 end.
