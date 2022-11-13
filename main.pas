@@ -1,6 +1,6 @@
 Program BatallaNaval;
 
-uses crt, menu, tablero, juego;
+uses crt, menu, juego;
 
 var
 opt : char;
