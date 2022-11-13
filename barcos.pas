@@ -9,7 +9,7 @@ type
 t_barcos = array [1..4] of t_barco;
 
 // Crea un array de barcos aleatorios. Los coloca sobre un tablero.
-function CrearBarcos(tablero: t_tablero): t_barcos;
+function CrearBarcos(var tablero: t_tablero): t_barcos;
 
 // Escribe los barcos contenidos en el array de barcos.
 procedure EscribirBarcos(barcos : t_barcos);
@@ -25,7 +25,7 @@ begin
     RandCasilla.y := random(N) + 1;
 end;
 
-function CrearBarcos(tablero: t_tablero): t_barcos;
+function CrearBarcos(var tablero: t_tablero): t_barcos;
 var
 i : 1..4;
 j : 1..4;
@@ -61,7 +61,7 @@ begin
         // Suma el barco al tablero
         for j := 1 to CrearBarcos[i].vidas do
         begin
-            SumarBarco(tablero, CrearBarcos[i].casillas[j]);
+            MarcarCasilla(tablero, CrearBarcos[i].casillas[j]);
         end;
 
     end;

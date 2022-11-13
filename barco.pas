@@ -8,7 +8,7 @@ uses Global, Tablero;
 
 type 
     t_barco = record
-        vidas : 1..4;
+        vidas : 0..4;
         casillas : array [1..4] of t_casilla;
     end;
 
@@ -51,7 +51,7 @@ end;
 function BarcoHundido(barco : t_barco): boolean;
 begin
     BarcoHundido := false;
-    if (barco.vidas <= 0) then
+    if (barco.vidas = 0) then
         BarcoHundido := true;
 end;
 
@@ -90,7 +90,7 @@ begin
 
     for i := 1 to 4 do
         begin
-            if (barco.casillas[i].x = casilla.x) and (barco.casillas[i].y = casilla.y) then
+            if CasillasIguales(barco.casillas[i], casilla)then
                 OcupaCasilla := true;
         end;
 end;
@@ -112,7 +112,7 @@ begin
         begin
             pos_actual := pos_inicial;
             pos_actual.x := pos_actual.x + i - 1;
-            if HayBarco(tablero, pos_actual) then
+            if CasillaMarcada(tablero, pos_actual) then
                 DisponibleHorizontal := false;
         end;
     end
@@ -135,7 +135,7 @@ begin
         begin
             pos_actual := pos_inicial;
             pos_actual.y := pos_actual.y + i - 1;
-            if HayBarco(tablero, pos_actual) then
+            if CasillaMarcada(tablero, pos_actual) then
                 DisponibleVertical := false;
         end;
     end

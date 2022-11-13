@@ -4,7 +4,7 @@ unit Tablero;
 
 interface
 
-uses Global;
+uses Global, crt;
 
 type
 t_tablero = array[1..N, 1..N] of boolean; // true: hay barco
@@ -12,20 +12,20 @@ t_tablero = array[1..N, 1..N] of boolean; // true: hay barco
 // Retorna un tablero vacío.
 function CrearTablero(): t_tablero;
 
-// Suma un barco a la coordenada x,y.
-procedure SumarBarco(var tablero : t_tablero; casilla : t_casilla);
+// Setea verdadera una casilla.
+procedure MarcarCasilla(var tablero : t_tablero; casilla : t_casilla);
 
-// Elimina un barco de la coordenada x,y.
-procedure BorrarBarco(var tablero : t_tablero; casilla : t_casilla);
+// Setea falsa una casilla.
+procedure VaciarCasilla(var tablero : t_tablero; casilla : t_casilla);
 
 // Retorna verdadero si hay un barco en la coordenada x,y.
-function HayBarco(tablero : t_tablero; casilla : t_casilla): boolean;
+function CasillaMarcada(tablero : t_tablero; casilla : t_casilla): boolean;
 
 // Retorna verdadero si el tablero está vacío.
 function TableroVacio(tablero : t_tablero): boolean;
 
 // Escribe el tablero en pantalla.
-procedure EscribirTablero(tablero : t_tablero);
+procedure EscribirTablero(tablero, tiros : t_tablero);
 
 {-----------------------------------------------}
 
@@ -43,21 +43,21 @@ begin
     end;
 end;
 
-procedure SumarBarco(var tablero : t_tablero; casilla : t_casilla);
+procedure MarcarCasilla(var tablero : t_tablero; casilla : t_casilla);
 begin
     tablero[casilla.x,casilla.y] := true;
 end;
 
-procedure BorrarBarco(var tablero : t_tablero; casilla : t_casilla);
+procedure VaciarCasilla(var tablero : t_tablero; casilla : t_casilla);
 begin
     tablero[casilla.x,casilla.y] := false;
 end;
 
-function HayBarco(tablero : t_tablero; casilla : t_casilla): boolean;
+function CasillaMarcada(tablero : t_tablero; casilla : t_casilla): boolean;
 begin
-    HayBarco := false;
+    CasillaMarcada := false;
     if tablero[casilla.x,casilla.y] then
-        HayBarco := true;
+        CasillaMarcada := true;
 end;
 
 function TableroVacio(tablero : t_tablero): boolean;
@@ -76,23 +76,40 @@ begin
     end;
 end;
 
-procedure EscribirTablero(tablero : t_tablero);
+procedure EscribirTablero(tablero, tiros : t_tablero);
 var
 i : 1..N;
 j : 1..N;
 val : char;
 begin
+    gotoxy(2, 1);
+    for i := 1 to N do
+        write(columnas[i]);
+
+    for i := 1 to N do
+    begin
+        gotoxy(1, (1+i));
+        write(i);
+    end;
+
     for j := 1 to N do
+    begin
+        gotoxy(2, (1+j));
+        for i := 1 to N do
         begin
-            for i := 1 to N do
-                begin
-                    val := '-';
-                    if tablero[i, j] then
-                        val := 'o';
-                    write(val);
-                end;
-            write(sLineBreak);
+            val := '-';
+            if tiros[i, j] then
+            begin
+                if tablero[i, j] then
+                    val := 'o'
+                else
+                    val := 'x';
+            end;
+            write(val);
         end;
+    end;
+    write(sLineBreak);
+    write(sLineBreak);
 end;
 
 end.
