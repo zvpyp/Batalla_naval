@@ -1,4 +1,4 @@
-unit barcos
+unit barcos;
 
 {-----------------------------------------------}
 interface
@@ -10,6 +10,9 @@ t_barcos = array [1..4] of t_barco;
 
 // Crea un array de barcos aleatorios. Los coloca sobre un tablero.
 function CrearBarcos(tablero: t_tablero): t_barcos;
+
+// Escribe los barcos contenidos en el array de barcos.
+procedure EscribirBarcos(barcos : t_barcos);
 
 implementation
 {-----------------------------------------------}
@@ -34,12 +37,12 @@ begin
     CrearBarcos[3] := CrearBarco(2);
     CrearBarcos[4] := CrearBarco(3);
 
-    for i : 1 to 4 do
+    for i := 1 to 4 do
     begin
         // Elige una casilla inicial. Repite hasta ser una casilla válida.
         repeat
             pos_inicial := RandCasilla();
-        until (DisponibleHorizontal(CrearBarcos[i], pos_inicial, tablero) or DisponibleVertical(CrearBarcos[i]), pos_inicial, tablero);
+        until (DisponibleHorizontal(CrearBarcos[i], pos_inicial, tablero)) or (DisponibleVertical(CrearBarcos[i], pos_inicial, tablero));
 
         // 1 : horizontal; 2 : vertical. Si una no está disponible, elige la otra.
         disposicion := random(2) + 1;
@@ -62,6 +65,14 @@ begin
         end;
 
     end;
+end;
+
+procedure EscribirBarcos(barcos : t_barcos);
+var
+i : 1..4;
+begin
+    for i := 1 to 4 do
+        EscribirBarco(barcos[i]);
 end;
 
 end.
