@@ -31,10 +31,10 @@ function OcupaCasilla(barco: t_barco; casilla : t_casilla): boolean;
 procedure QuitarVida(var barco : t_barco);
 
 // Retorna verdadero si el barco puede colocarse horizontalmente dada una casilla inicial.
-function DisponibleHorizontal(barco: t_barco, pos_inicial : t_casilla): boolean;
+function DisponibleHorizontal(barco: t_barco, pos_inicial : t_casilla, tablero : t_tablero): boolean;
 
 // Retorna verdadero si el barco puede colocarse verticalmente dada una casilla inicial.
-function DisponibleVertical(barco: t_barco, pos_inicial : t_casilla): boolean;
+function DisponibleVertical(barco: t_barco, pos_inicial : t_casilla, tablero: t_tablero): boolean;
 
 {-----------------------------------------------}
 
@@ -96,18 +96,49 @@ begin
     barco.vidas := barco.vidas - 1;
 end;
 
-function DisponibleHorizontal(barco: t_barco, pos_inicial : t_casilla): boolean;
+function DisponibleHorizontal(barco: t_barco, pos_inicial : t_casilla, tablero : t_tablero): boolean;
+var
+i := 1..4;
+pos_actual : t_casilla;
 begin
-    DisponibleHorizontal := false;
+    DisponibleHorizontal := true;
     if (pos_inicial.x <= (N - barco.vidas + 1)) then
-        DisponibleHorizontal := true;
+    begin
+        for i := 1 to barco.vidas do
+        begin
+            pos_actual := pos_inicial;
+            pos_actual.x := pos_actual.x + i - 1;
+            if HayBarco(tablero, pos_actual) then
+                DisponibleHorizontal := false;
+        end;
+    end
+    else
+    begin
+        DisponibleHorizontal := false;
+    end;
+
 end;
 
-function DisponibleVertical(barco: t_barco, pos_inicial : t_casilla): boolean;
+function DisponibleVertical(barco: t_barco, pos_inicial : t_casilla, tablero: t_tablero): boolean;
+var
+i := 1..4;
+pos_actual : t_casilla;
 begin
-    DisponibleVertical := false;
+    DisponibleVertical := true;
     if (pos_inicial.y <= (N - barco.vidas + 1)) then
-        DisponibleVertical := true;
+    begin
+        for i := 1 to barco.vidas do
+        begin
+            pos_actual := pos_inicial;
+            pos_actual.y := pos_actual.y + i - 1;
+            if HayBarco(tablero, pos_actual) then
+                DisponibleVertical := false;
+        end;
+    end
+    else
+    begin
+        DisponibleVertical := false;
+    end;
 end;
 
 end.
